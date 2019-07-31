@@ -1,16 +1,13 @@
 <?php
-
-$sql = "SELECT posts.Id, posts.Title, posts.Created_at, posts.Author, posts.Body
+require('database.php');
+$sql = "SELECT posts.Id as Id, posts.Title as Title, posts.Created_at as Created_at, posts.Author as Author, posts.Body as Body
 FROM posts ORDER BY Created_at DESC";
-
-$statement = $connection->prepare($sql);
-$statement->execute();
-$statement->setFetchMode(PDO::FETCH_ASSOC);
-$posts = $statement->fetchAll();
-
+$stmt = $connection->prepare($sql);
+$stmt->execute();
+$stmt->setFetchMode(PDO::FETCH_ASSOC);
+$posts = $stmt->fetchAll();
 
 ?>
-
 
 <?php foreach($posts as $post){ ;?>
 
@@ -25,3 +22,4 @@ $posts = $statement->fetchAll();
 </div>
 
 <?php };?>
+
