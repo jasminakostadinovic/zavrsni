@@ -62,7 +62,7 @@ require('database.php');
 
                     <form method="GET" action="delete-post.php" name="deletePostForm">
                         <button id="delete" class="btn btn-primary" onclick="confirmDelete()">Delete this post</button>
-                        <input type="hidden" value="<?php echo $_GET['post_id']; ?>" name="id"/>
+                        <input type="hidden" value="Id" name="Id"/>
                         <hr/>
                     </form>
 
@@ -75,7 +75,9 @@ require('database.php');
                         });
                     </script>
 
-                    <form method="POST" action="create-comment.php" >
+
+
+                    <form method="POST" action="create-comment.php" id= "addComment" >
 
                         <?php if (!empty($error) && $error !== "false") { ?>
 
@@ -84,14 +86,35 @@ require('database.php');
                         <hr/>
 
                         <?php } ?>
-                        
-                        <input id="author" name="author" type="text" placeholder="Author" style="display:block; margin-bottom:1.2rem; padding:0.8rem"/>
+                       
+                        <input id="Author" name="Author" type="text" placeholder="Author" style="display:block; margin-bottom:1.2rem; padding:0.8rem"/>
                         <textarea id="comment" name="comment" rows="10" cols="100" placeholder="Comment" style="display:block; margin-bottom:1.5rem"></textarea>
-                        <input type="hidden" value="<?php echo $_GET['post_id']; ?>" name="id"/>
+                      
+                        <input type="hidden" name="post_id" value="Id"/>
+                        
                         <input class="btn btn-default" type="submit" value="Submit comment">
 
                         
                     </form>
+                                
+
+                    <script>
+
+                        var Autor = document.querySelector('#Autor');
+                        var comment = document.querySelector('#comment');
+                        var addComment = document.querySelector('#addComment');
+
+                        addComment.addEventListener('submit', function(pEvent){
+                            if(Autor.value === '' && comment.value === '') {
+                            pEvent.preventDefault(); 
+                            alert('Please Fill in all Required Fields');
+                        });
+
+                       
+
+                    </script>
+
+                    
 
                     <hr>
 
@@ -111,20 +134,4 @@ require('database.php');
 </html>
     
 
-
-<html>
-    <head>
-        <title>Greeting</title>
-    </head>
-    <body>
-        <?php
-        require_once('header.php');?>
-       <h2>Home</h2>
-       <?php
-           require_once 'greeting.php';
-           include_once('structure/footer.php');
-       ?>
-       <a href="welcome.php">Welcome</a>
-    </body>
-</html>
 

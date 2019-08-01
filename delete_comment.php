@@ -1,6 +1,19 @@
 <?php
     
     include("database.php");
+
+    $sql = 'SELECT id FROM comments';
+
+    $stmt = $connection->prepare($sql);
+
+    $stmt->execute();
+
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+    $results = $stmt->fetchAll();
+
+    
+
     
     $id = $_GET['Id'];
     $post_id = $_GET['post_id'];
@@ -12,6 +25,6 @@
          $statementDelete->setFetchMode(PDO::FETCH_ASSOC);
      
      
-         header("Location: http://localhost:8080/single-post.php?post_id=$post_id");
+       
 
 ?> 

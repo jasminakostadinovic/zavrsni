@@ -21,11 +21,12 @@
             <li>
                 <h6><?php echo($comment['Author']); ?></h6>
                 <p><?php echo($comment['Text']); ?></p>
-                <form method="GET" action="delete-comment.php" >
+                <form method="GET" action="delete_comment.php" >
                     <button id="delete" class="btn btn-default">Delete</button>
-                    <input type="hidden" value="<?php echo $comment['Id']; ?>" name="Id"/>
-                    <input type="hidden" value="<?php echo $comment['post_id']; ?>" name="post_id"/>
+                    <input type="hidden" value="Id" name="Id"/>
+                    <input type="hidden" value="post_id" name="post_id"/>
                 </form>
+                
             </li>
     </ul>
 <hr>
