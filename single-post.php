@@ -90,7 +90,7 @@ require('database.php');
                         <input id="Author" name="Author" type="text" placeholder="Author" style="display:block; margin-bottom:1.2rem; padding:0.8rem"/>
                         <textarea id="comment" name="comment" rows="10" cols="100" placeholder="Comment" style="display:block; margin-bottom:1.5rem"></textarea>
                       
-                        <input type="hidden" name="post_id" value="Id"/>
+                        <input type="hidden" name="post_id" value="<?php echo($singlePost['Id']) ?>"/>
                         
                         <input class="btn btn-default" type="submit" value="Submit comment">
 
