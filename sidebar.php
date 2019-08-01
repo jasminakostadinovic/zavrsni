@@ -20,6 +20,7 @@
             <?php foreach($posts as $post){ ;?>
                 <li>
                     <a href="single-post.php?post_id=<?php echo($post['Id']) ?>"><p><?php echo ($post['Title']); ?><p></a>
+                    
                 </li>
             <?php } ;?>
         </ul>

@@ -1,85 +1,130 @@
 <?php
-    require('header.php');
-    require('footer.php');
-    require('sidebar.php');
+
+require('database.php');
+
 ?>
 
-<html>
-    <main role="main" class="container">
+<!doctype html>
+<html lang="en">
+    <head>
 
-        <div class="row">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="../../../../favicon.ico">
 
-            <div class="col-sm-8 blog-main">
+        <title>Vivify Blog</title>
 
-                <div class="blog-post">
-                    <h2 class="blog-post-title">Sample blog post</h2>
-                    <p class="blog-post-meta">January 1, 2014 by <a href="#">Mark</a></p>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
-                    <p>This blog post shows a few different types of content that's supported and styled with Bootstrap. Basic typography, images, and code are all supported.</p>
+        <link href="styles/blog.css" rel="stylesheet">
+        <link href="styles/styles.css" rel="stylesheet">
+
+    </head>
+
+    <?php
+
+        $sql = "SELECT posts.Id as Id, posts.Title as Title, posts.Created_at as Created_at, posts.Author as Author, posts.Body as Body
+        FROM posts ";
+
+        $sql = $connection->prepare($sql);
+        $sql->execute();
+        $sql->setFetchMode(PDO::FETCH_ASSOC);
+        $singlePost = $sql->fetchAll()[0];
+
+    ?>
+
+    <body>
+
+        <?php include 'header.php' ?>
+
+        <main role="main" class="container">
+
+            <div class="row">
+                <div class="col-sm-8 blog-main">
+                    <div class="blog-post">
+                        <a href= "single-post.php?post_id=<?php echo($singlePost['Id']) ?>"><h2 class="blog-post-title"><?php echo ($singlePost['Title']); ?></h2></a>
+                        <p class="blog-post-meta"><?php echo ($singlePost['Created_at']); ?> by <a href="#"><?php echo ($singlePost['Author']); ?></a></p>
+                        <p><?php echo ($singlePost['Body']); ?></p>
+                    </div>
+            
+
+                    <?php
+
+                        $error = '';
+
+                        if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET['required'])) {
+                            $error = "All fields are required";
+                        }
+
+                    ?>
+
+                    <form method="GET" action="delete-post.php" name="deletePostForm">
+                        <button id="delete" class="btn btn-primary" onclick="confirmDelete()">Delete this post</button>
+                        <input type="hidden" value="<?php echo $_GET['post_id']; ?>" name="id"/>
+                        <hr/>
+                    </form>
+
+                    <script>
+                        document.getElementById("delete").addEventListener("click", function(event){
+                            event.preventDefault()
+                            if(window.confirm("Do you really want to delete this post?")){
+                                document.deletePostForm.submit();
+                            }
+                        });
+                    </script>
+
+                    <form method="POST" action="create-comment.php" >
+
+                        <?php if (!empty($error) && $error !== "false") { ?>
+
+                        <span class="alert alert-danger"><?php echo $error ; ?></span>
+
+                        <hr/>
+
+                        <?php } ?>
+                        
+                        <input id="author" name="author" type="text" placeholder="Author" style="display:block; margin-bottom:1.2rem; padding:0.8rem"/>
+                        <textarea id="comment" name="comment" rows="10" cols="100" placeholder="Comment" style="display:block; margin-bottom:1.5rem"></textarea>
+                        <input type="hidden" value="<?php echo $_GET['post_id']; ?>" name="id"/>
+                        <input class="btn btn-default" type="submit" value="Submit comment">
+
+                        
+                    </form>
+
                     <hr>
-                    <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
-                    <blockquote>
-                        <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                    </blockquote>
-                    <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-                    <h2>Heading</h2>
-                    <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                    <h3>Sub-heading</h3>
-                    <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                    <pre><code>Example code block</code></pre>
-                    <p>Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.</p>
-                    <h3>Sub-heading</h3>
-                    <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                    <ul>
-                        <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
-                        <li>Donec id elit non mi porta gravida at eget metus.</li>
-                        <li>Nulla vitae elit libero, a pharetra augue.</li>
-                    </ul>
-                    <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
-                    <ol>
-                        <li>Vestibulum id ligula porta felis euismod semper.</li>
-                        <li>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</li>
-                        <li>Maecenas sed diam eget risus varius blandit sit amet non magna.</li>
-                    </ol>
-                    <p>Cras mattis consectetur purus sit amet fermentum. Sed posuere consectetur est at lobortis.</p>
-                </div><!-- /.blog-post -->
 
-                <div class="blog-post">
-                    <h2 class="blog-post-title">Another blog post</h2>
-                    <p class="blog-post-meta">December 23, 2013 by <a href="#">Jacob</a></p>
+                    <?php include 'comments.php' ?>
 
-                    <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
-                    <blockquote>
-                        <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                    </blockquote>
-                    <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-                    <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                </div><!-- /.blog-post -->
+                </div>
 
-                <div class="blog-post">
-                    <h2 class="blog-post-title">New feature</h2>
-                    <p class="blog-post-meta">December 14, 2013 by <a href="#">Chris</a></p>
+                <?php include 'sidebar.php' ?>
 
-                    <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                    <ul>
-                        <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
-                        <li>Donec id elit non mi porta gravida at eget metus.</li>
-                        <li>Nulla vitae elit libero, a pharetra augue.</li>
-                    </ul>
-                    <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-                    <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
-                </div><!-- /.blog-post -->
+            </div>
 
-                <nav class="blog-pagination">
-                    <a class="btn btn-outline-primary" href="#">Older</a>
-                    <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
-                </nav>
+        </main>
 
-            </div><!-- /.blog-main -->
+        <?php include 'footer.php' ?>
 
-        
-
-        </div><!-- /.row -->
-
-    </main><!-- /.container -->
+    </body>
 </html>
+    
+
+
+<html>
+    <head>
+        <title>Greeting</title>
+    </head>
+    <body>
+        <?php
+        require_once('header.php');?>
+       <h2>Home</h2>
+       <?php
+           require_once 'greeting.php';
+           include_once('structure/footer.php');
+       ?>
+       <a href="welcome.php">Welcome</a>
+    </body>
+</html>
+

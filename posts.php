@@ -44,7 +44,8 @@ require('database.php');
                     <div class="blog-post">
                         <?php foreach($posts as $post){ ;?>
 
-                        <a href="single-post.php" class="blog-post-title" > <h2><?php echo $post['Title']; ?></h2> </a>
+                        <a href="single-post.php"  > <h2 class="blog-post-title"><?php echo $post['Title']; ?></h2> </a>
+                       
         
                         <p class="blog-post-meta">
                             <?php echo ($post['Created_at']); ?> 
