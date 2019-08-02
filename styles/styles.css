@@ -1,5 +1,6 @@
 * {
     font-size: 14px;
+    font-family: sans-serif;
 }
 .blog-masthead {
     background-color: #b34848;
@@ -20,8 +21,14 @@ h6,
 .blog-post-title {
     
     color: #b34848;
+    font-family: Georgia,  serif;
 }
 .blog-post-title:hover {
     
     color: #b34848;
+}
+.btn {
+    color: #069;
+    border-color: #036;
+    
 }
