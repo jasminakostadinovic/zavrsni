@@ -20,15 +20,16 @@ h6,
 .h6,
 .blog-post-title {
     
-    color: #b34848;
+    color: #333;
     font-family: Georgia,  serif;
 }
 .blog-post-title:hover {
     
-    color: #b34848;
+    text-decoration: underline;
 }
 .btn {
     color: #069;
     border-color: #036;
     
 }
+
