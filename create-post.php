@@ -12,4 +12,5 @@ require("database.php");
         $stmt = $connection->prepare($sql);
         $stmt->execute([ $author, $title, $body, $createdAt]);
         } 
+        header('Location: /index.php');
 ?>

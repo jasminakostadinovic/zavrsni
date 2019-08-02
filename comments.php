@@ -16,27 +16,31 @@
 <button class="btn btn-default" id="button" onclick="hideComment()">Hide Comments</button>
 
 <hr>
-    <ul id='post_comments'>
+<div class="comments" id="comment-section">
+    <ul id='comment-list'>
         <?php foreach($comments as $comment){ ;?>
             <li>
                 <h6><?php echo($comment['Author']); ?></h6>
                 <p><?php echo($comment['Text']); ?></p>
                 <form method="GET" action="delete_comment.php" >
                     <button id="delete" class="btn btn-default">Delete</button>
-                    <input type="hidden" value="Id" name="Id"/>
-                    <input type="hidden" value="post_id" name="post_id"/>
+                    <input type="hidden" value="<?php echo($comment['Id']); ?>" name="Id"/>
+                    <input type="hidden" value="<?php echo($comment['post_id']); ?>" name="post_id"/>
                 </form>
                 
             </li>
+        <?php };?>
     </ul>
+</div>
 <hr>
 
-<?php };?>
+
+
     
 
 <script>
 
-    var comments = document.getElementById('post_comments')
+    var comments = document.getElementById('comment-list')
     var button = document.getElementById('button')
 
     function hideComment(){

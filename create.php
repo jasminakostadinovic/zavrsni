@@ -26,38 +26,53 @@
             <div class="row">
 
                 <div class="col-sm-8 blog-main">
-       
-
-                    <?php
-                    $error = '';
-                    if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET['required'])) {
-                        $error = "All field are required";
-                    }
-                    ?>
-                
-                    <form method="POST"  action = "create-post.php">
-                        <?php if (!empty($error) && $error !== "false") {?>
-                        <span class="alert alert-danger"><?php echo $error ; ?></span>
-                        <hr/>
-                        <?php } ?>
+                    <div class="form-container">
+        
+                        <div class="alert alert-danger" id="alertBox">
+                        <strong>Failed submit!</strong> Please fill out all remaining fields.
+                        </div>
+                    
+                    
+                        <form method="POST"  action = "create-post.php">
+                                                      
+                            <input id="Author" name="Author" type="text" placeholder="Author" style="display:block; margin-bottom:1rem; padding:0.5rem"/>
+                            <input id="Title" name="Title" type="text" placeholder="Title" style="display:block; margin-bottom:1rem; padding:0.5rem"/>
+                            <textarea id="Body" name="Body" rows="5" cols="70" placeholder="Text" style="display:block; margin-bottom:1rem"></textarea>
+                            <input id="submit" class="btn btn-default" type="submit" value="Submit">
                         
-                        <input id="Author" name="Author" type="text" placeholder="Author" style="display:block; margin-bottom:1rem; padding:0.5rem"/>
-                        <input id="Title" name="Title" type="text" placeholder="Title" style="display:block; margin-bottom:1rem; padding:0.5rem"/>
-                        <textarea id="Body" name="Body" rows="5" cols="70" placeholder="Text" style="display:block; margin-bottom:1rem"></textarea>
-                        <input class="btn btn-default" type="submit" value="Submit">
-                       
-                    </form>
-
-       
+                        </form>
+                    </div>
+                 
+      
 
                 </div><!-- /.blog-main -->
 
                     <?php include('sidebar.php'); ?><!-- /.blog-sidebar -->
 
             </div><!-- /.row -->
+            <script>
+                const title = document.getElementById('Title').value;
+                const body = document.getElementById('Body').value;
+                const commentSubmitBtn = document.getElementById('submit');
+
+                commentSubmitBtn.addEventListener('click', function() {
+                    if (Title === "" || Body === "") {
+                        alertBox.style.display = 'block';
+                    }
+                });
+            </script>
 
         </main><!-- /.container -->
 
         <?php include('footer.php'); ?>
     </body>
 </html>
+
+
+
+
+
+
+
+
+

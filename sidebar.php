@@ -17,13 +17,18 @@
     <div class="sidebar-module sidebar-module-inset">
         <h4>Latest posts</h4>
         <ul>
-            <?php foreach($posts as $post){ ;?>
+            <?php foreach($posts as $post){ ?>
                 <li>
-                    <a href="single-post.php?post_id=<?php echo($post['Id']) ?>"><p><?php echo ($post['Title']); ?><p></a>
+                <p>  <a href="single-post.php?post_id=<?php echo $post['Id']; ?>">
+                         <?php echo $post['Title']; ?>
+                     </a>
+                </p>
                     
                 </li>
-            <?php } ;?>
+            <?php } ?>
         </ul>
     </div>
             
 </aside>
+
+

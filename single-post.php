@@ -92,7 +92,7 @@ require('database.php');
                       
                         <input type="hidden" name="post_id" value="<?php echo($singlePost['Id']) ?>"/>
                         
-                        <input class="btn btn-default" type="submit" value="Submit comment">
+                        <input id= "addComment" class="btn btn-default" type="submit" value="Submit comment">
 
                         
                     </form>
@@ -100,12 +100,12 @@ require('database.php');
 
                     <script>
 
-                        var Autor = document.querySelector('#Autor');
-                        var comment = document.querySelector('#comment');
-                        var addComment = document.querySelector('#addComment');
+                        var Author = document.getElementById('Author');
+                        var comment = document.getElementById('comment');
+                        var addComment = document.getElementById('addComment');
 
                         addComment.addEventListener('submit', function(pEvent){
-                            if(Autor.value === '' && comment.value === '') {
+                            if(Author.value === '' && comment.value === '') {
                             pEvent.preventDefault(); 
                             alert('Please Fill in all Required Fields');
                         });
@@ -114,6 +114,7 @@ require('database.php');
 
                     </script>
 
+             
                     
 
                     <hr>
