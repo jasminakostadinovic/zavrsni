@@ -24,9 +24,13 @@ require('database.php');
     </head>
 
     <?php
+		
+		$postid = " ";
+		if (!empty($_GET['post_id']))
+			$postid = "WHERE posts.Id = ". $_GET['post_id'];
 
         $sql = "SELECT posts.Id as Id, posts.Title as Title, posts.Created_at as Created_at, posts.Author as Author, posts.Body as Body
-        FROM posts ";
+        FROM posts ".$postid;
 
         $sql = $connection->prepare($sql);
         $sql->execute();
@@ -62,7 +66,7 @@ require('database.php');
 
                     <form method="GET" action="delete-post.php" name="deletePostForm">
                         <button id="delete" class="btn btn-primary" onclick="confirmDelete()">Delete this post</button>
-                        <input type="hidden" value="Id" name="Id"/>
+                        <input type="hidden" value="<?php echo($_GET['post_id']) ?>" name="Id"/>
                         <hr/>
                     </form>
 

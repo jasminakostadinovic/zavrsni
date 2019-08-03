@@ -1,10 +1,10 @@
 <?php
 
     require('database.php');
-    $sql = "SELECT posts.Id as Id, comments.Id as Id, comments.Author as Author, comments.post_id as post_id, comments.Text as Text 
-    FROM posts JOIN comments ON comments.post_id = posts.Id";
+	$post_id = $_GET['post_id'];
 
-
+    $sql = "SELECT comments.Id as Id, comments.Author as Author, comments.post_id as post_id, comments.Text as Text 
+    FROM comments WHERE comments.post_id = $post_id";
     
     $sql = $connection->prepare($sql);
     $sql->execute();
@@ -34,9 +34,6 @@
 </div>
 <hr>
 
-
-
-    
 
 <script>
 

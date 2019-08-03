@@ -11,6 +11,8 @@ require("database.php");
         $sql = "INSERT INTO posts ( Title, Body, Author, Created_at) VALUES ('{$title}', '{$body}', '{$author}', '{$createdAt}');";
         $stmt = $connection->prepare($sql);
         $stmt->execute([ $author, $title, $body, $createdAt]);
+
         } 
-        header('Location: /index.php');
+        $last_id = $connection->lastInsertId();
+        header( "Location: single-post.php?post_id=$last_id");
 ?>

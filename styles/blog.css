@@ -69,28 +69,7 @@
     background-color: #dfdfdf;
   }
   
-  /* Active state gets a caret at the bottom */
-  /* .nav-link.active {
-    color: #fff;
-    background-color: #b4b3b3;
-  } */
-  /* .nav-link.active::after {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 0;
-    margin-left: -0.3rem;
-    vertical-align: middle;
-    content: "";
-    border-right: 0.3rem solid transparent;
-    border-bottom: 0.3rem solid;
-    border-left: 0.3rem solid transparent;
-  } */
-  
-  /*
-   * Blog name and description
-   */
+
   
   .blog-header {
     padding-bottom: 1.25rem;

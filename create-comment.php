@@ -14,5 +14,6 @@ require('database.php');
         
         $stmt = $connection->prepare($sql);
         $stmt->execute([$author, $comment]);
-    
+		header( "Location: single-post.php?post_id=$id" );
     } 
+?>
