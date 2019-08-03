@@ -20,7 +20,7 @@ h6,
 .h6,
 .blog-post-title {
     
-    color: #333;
+    color:  #b34848;
     font-family: Georgia,  serif;
 }
 .blog-post-title:hover {
@@ -32,4 +32,24 @@ h6,
     border-color: #036;
     
 }
+.blog-masthead {
+    background-color: gray;
+}
 
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6,
+.blog-post-title {
+    
+    color:#333;
+    font-family: Georgia,  serif;
+}
